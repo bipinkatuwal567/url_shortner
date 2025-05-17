@@ -21,6 +21,6 @@ const URLShortnerSchema = new mongoose.Schema({
   },
 });
 
-const shortURL = mongoose.model("shortURL", URLShortnerSchema); 
+const shortURL = mongoose.model("shortURL", URLShortnerSchema);
 
 export default shortURL;
