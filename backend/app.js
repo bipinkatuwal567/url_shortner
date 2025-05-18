@@ -1,10 +1,9 @@
 import express from "express";
-import { nanoid } from "nanoid";
 import connectDB from "./src/config/mongodb.config.js";
 import dotenv from "dotenv";
-import urlSchema from "./src/model/urlShortner.model.js";
 import url_shortnerRouter from "./src/routes/url_shortner.route.js"
 import { redirectUserFromShortUrl } from "./src/controller/url_shortner.controller.js";
+import { errorHandler } from "./src/utils/appError.js";
 
 const app = express();
 dotenv.config("./.env");
@@ -17,6 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/create", url_shortnerRouter)
 
 app.get("/:id", redirectUserFromShortUrl);
+
+// Global error handler
+app.use(errorHandler)
 
 app.listen(3000, () => {
   connectDB();

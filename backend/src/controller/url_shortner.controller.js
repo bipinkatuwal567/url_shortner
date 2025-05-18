@@ -1,15 +1,15 @@
 import { createShortURlWithoutUser } from "../services/url_shortner.service.js";
-import urlSchema from "../model/urlShortner.model.js";
 import { getShortUrl } from "../dao/short_url.js";
+import { catchAsync } from "../utils/catchAsync.js";
 
-export const createShortURL = async (req, res) => {
+export const createShortURL = catchAsync(async (req, res, next) => {
   const { url } = req.body;
   const shortendURl = await createShortURlWithoutUser(url);
 
   res.send(process.env.APP_URL + shortendURl.short_url);
-};
+});
 
-export const redirectUserFromShortUrl = async (req, res) => {
+export const redirectUserFromShortUrl = catchAsync(async (req, res) => {
   const { id } = req.params;
   const url = await getShortUrl(id);
 
@@ -18,4 +18,4 @@ export const redirectUserFromShortUrl = async (req, res) => {
   } else {
     res.send("Sorry, this URL isn't shorten");
   }
-};
+});
