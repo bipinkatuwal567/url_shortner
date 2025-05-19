@@ -5,8 +5,9 @@ import { catchAsync } from "../utils/catchAsync.js";
 export const createShortURL = catchAsync(async (req, res, next) => {
   const { url } = req.body;
   const shortendURl = await createShortURlWithoutUser(url);
-
-  res.send(process.env.APP_URL + shortendURl.short_url);
+  res
+    .status(201)
+    .json({ shortURL: process.env.APP_URL + shortendURl.short_url });
 });
 
 export const redirectUserFromShortUrl = catchAsync(async (req, res) => {

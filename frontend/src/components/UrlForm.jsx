@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+
+import createShortUrl from "../api/shortUrl.api";
 
 const UrlForm = () => {
     const [url, setUrl] = useState("https://google.com");
@@ -8,21 +9,15 @@ const UrlForm = () => {
     const [error, setError] = useState("");
     const [copied, setCopied] = useState(false);
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError("");
 
         try {
-            const response = await axios.post("http://localhost:3000/api/create", { url })
-
-            console.log(response);
-
-
-            if (response.statusText !== "OK") {
-                throw new Error("Failed to create short URL");
-            }
-            setShortUrl(response.data);
+            const response = await createShortUrl(url);
+            setShortUrl(response);
         } catch (err) {
             setError(err.message);
         } finally {
