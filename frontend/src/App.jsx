@@ -1,9 +1,15 @@
 import React from "react";
+import HomePage from "./pages/home-page";
 
 const App = () => {
   return (
-    <div className=''>App</div>
-  )
-}
+    <>
+      <HomePage />
+    </>
+  );
+};
 
-export default App
+export default App;
+
+
+

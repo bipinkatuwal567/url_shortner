@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import url_shortnerRouter from "./src/routes/url_shortner.route.js"
 import { redirectUserFromShortUrl } from "./src/controller/url_shortner.controller.js";
 import { errorHandler } from "./src/utils/appError.js";
+import cors from "cors"
 
 const app = express();
+app.use(cors());
 dotenv.config("./.env");
 
 // Middleware
